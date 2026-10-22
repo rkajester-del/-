@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tribushnoi Education</title>
+    <style>
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; color: #333; background: #f5f5f5; overflow-x: hidden; }
+        
+        header { 
+            background: linear-gradient(135deg, #2c3e50, #3498db); 
+            color: white; padding: 15px 0; 
+            position: sticky; top: 0; z-index: 1000; 
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1); 
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: white; }
+        .logo img { width: 45px; height: 45px; border-radius: 50%; background: white; padding: 3px; object-fit: contain; }
+        .logo h1 { font-size: 20px; font-weight: 700; letter-spacing: 0.5px; }
+        nav ul { list-style: none; display: flex; gap: 25px; }
+        nav a { color: rgba(255,255,255,0.9); text-decoration: none; font-weight: 500; font-size: 15px; transition: color 0.3s; }
+        nav a:hover { color: white; }
+
+        .hero { 
+            background: linear-gradient(rgba(44,62,80,0.9), rgba(52,152,219,0.85)); 
+            color: white; padding: 120px 0; text-align: center; position: relative;
+        }
+        .hero h2 { font-size: 42px; margin-bottom: 20px; font-weight: 800; line-height: 1.2; }
+        .hero p { font-size: 19px; margin-bottom: 35px; max-width: 650px; margin-left: auto; margin-right: auto; opacity: 0.95; }
+        .btn-group { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .btn { 
+            display: inline-block; padding: 14px 32px; border-radius: 6px; font-weight: 600; font-size: 16px;
+            text-decoration: none; transition: all 0.3s ease; cursor: pointer; border: none; text-align: center;
+        }
+        .btn-primary { background: #e74c3c; color: white; box-shadow: 0 4px 15px rgba(231,76,60,0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(231,76,60,0.4); background: #c0392b; }
+        .btn-outline { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.6); }
+        .btn-outline:hover { background: white; color: #2c3e50; border-color: white; }
+
+        .stats-bar { 
+            background: white; padding: 40px 0; margin-top: -40px; 
+            position: relative; z-index: 10; border-radius: 12px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08); 
+            max-width: 1000px; margin-left: auto; margin-right: auto; 
+        }
+        .stats-grid { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; text-align: center; }
+        .stat-item h3 { font-size: 36px; color: #3498db; font-weight: 800; margin-bottom: 5px; }
+        .stat-item p { font-size: 14px; color: #666; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+
+        .features { padding: 80px 0; background: #f5f5f5; }
+        .section-title { text-align: center; font-size: 32px; margin-bottom: 15px; color: #2c3e50; font-weight: 700; }
+        .section-subtitle { text-align: center; color: #666; margin-bottom: 50px; font-size: 17px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .feature-card { background: white; padding: 35px 25px; border-radius: 12px; text-align: center; transition: transform 0.3s; box-shadow: 0 5px 20px rgba(0,0,0,0.04); }
+        .feature-card:hover { transform: translateY(-5px); }
+        .feature-icon { width: 60px; height: 60px; background: #ebf5fb; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 28px; }
+        .feature-card h3 { font-size: 19px; margin-bottom: 12px; color: #2c3e50; }
+        .feature-card p { font-size: 14px; color: #666; line-height: 1.7; }
+
+        .how-it-works { padding: 80px 0; background: white; }
+        .steps-container { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-top: 40px; }
+        .step { flex: 1; min-width: 200px; text-align: center; position: relative; }
+        .step-number { width: 50px; height: 50px; background: #3498db; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: bold; margin: 0 auto 20px; position: relative; z-index: 2; }
+        .step h3 { font-size: 18px; margin-bottom: 10px; color: #2c3e50; }
+        .step p { font-size: 14px; color: #666; }
+        
+        /* Стили для руководства */
+        .leadership { padding: 80px 0; background: #fff; }
+        .director-card { 
+            max-width: 900px; margin: 40px auto 0; 
+            background: linear-gradient(135deg, #2c3e50, #34495e); 
+            color: white; border-radius: 16px; padding: 40px; 
+            display: flex; gap: 40px; align-items: center; 
+            box-shadow: 0 15px 40px rgba(44,62,80,0.2);
+        }
+        .director-photo { 
+            width: 180px; height: 180px; border-radius: 50%; 
+            background: #ddd; overflow: hidden; flex-shrink: 0; 
+            border: 4px solid rgba(255,255,255,0.2);
+        }
+        .director-photo img { width: 100%; height: 100%; object-fit: cover; }
+        .director-info h3 { font-size: 28px; margin-bottom: 5px; font-weight: 700; }
+        .director-role { color: #3498db; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+        .director-info p { font-size: 16px; line-height: 1.8; opacity: 0.9; }
+        .director-quote { 
+            margin-top: 20px; padding-left: 20px; 
+            border-left: 3px solid #3498db; 
+            font-style: italic; opacity: 0.8; font-size: 15px;
+        }
+
+        /* Стили для учителей */
+        .teachers { padding: 80px 0; background: #f9f9f9; }
+        .teachers-list { display: flex; flex-direction: column; gap: 30px; max-width: 800px; margin: 40px auto 0; }
+        
+        .teacher-item { 
+            display: flex; align-items: center; gap: 25px; 
+            background: white; padding: 25px; border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 4px solid #3498db;
+        }
+        .teacher-photo { 
+            width: 100px; height: 100px; border-radius: 50%; 
+            background: #ddd; overflow: hidden; flex-shrink: 0; 
+            border: 2px solid #eee;
+        }
+        .teacher-photo img { width: 100%; height: 100%; object-fit: cover; }
+        .teacher-info h3 { color: #2c3e50; margin-bottom: 5px; font-size: 20px; }
+        .subject { color: #3498db; font-weight: 700; margin-bottom: 8px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .teacher-info p { color: #666; font-size: 15px; line-height: 1.6; }
+
+        .cta-section { padding: 80px 0; background: linear-gradient(135deg, #2c3e50, #3498db); color: white; text-align: center; }
+        .cta-section h2 { font-size: 32px; margin-bottom: 15px; }
+        .cta-section p { font-size: 18px; margin-bottom: 30px; opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+        .contact { padding: 80px 0; background: #f5f5f5; }
+        .contact-info { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 40px; }
+        .contact-item { text-align: center; min-width: 220px; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        .contact-item h4 { color: #2c3e50; margin-bottom: 10px; font-size: 18px; }
+        .contact-item p { color: #666; font-size: 16px; }
+        footer { background: #2c3e50; color: rgba(255,255,255,0.7); text-align: center; padding: 30px 0; font-size: 14px; }
+
+        @media (max-width: 768px) { 
+            .header-content { flex-direction: column; gap: 15px; } 
+            nav ul { gap: 15px; flex-wrap: wrap; justify-content: center; }
+            .hero h2 { font-size: 28px; }
+            .stats-bar { margin-top: 0; border-radius: 0; box-shadow: none; background: #f5f5f5; }
+            .steps-container { flex-direction: column; align-items: center; }
+            .director-card { flex-direction: column; text-align: center; padding: 30px 20px; }
+            .director-quote { border-left: none; border-top: 3px solid #3498db; padding-left: 0; padding-top: 15px; margin-left: 0; }
+            .teacher-item { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#home" class="logo">
+                    <img src="logo.png" alt="Logo">
+                    <h1>Tribushnoi Education</h1>
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#features">Преимущества</a></li>
+                        <li><a href="#leadership">Руководство</a></li>
+                        <li><a href="#teachers">Учителя</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>Образование, которое меняет будущее</h2>
+            <p>Tribushnoi Education — это система подготовки, основанная на глубоком понимании предмета и индивидуальных траекториях развития каждого ученика.</p>
+            <div class="btn-group">
+                <a href="#contact" class="btn btn-primary">Записаться на занятие</a>
+                <a href="#features" class="btn btn-outline">Узнать больше</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="stats-bar">
+            <div class="stats-grid">
+                <div class="stat-item"><h3>500+</h3><p>Выпускников</p></div>
+                <div class="stat-item"><h3>92%</h3><p>ЕНТ на 110+ баллов</p></div>
+                <div class="stat-item"><h3>10 лет</h3><p>Опыт работы</p></div>
+                <div class="stat-item"><h3>4.9</h3><p>Рейтинг центра</p></div>
+            </div>
+        </div>
+    </div>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Почему выбирают нас</h2>
+            <p class="section-subtitle">Мы создали среду, где знания превращаются в навыки, а страх перед экзаменами — в уверенность</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3>Индивидуальный план</h3>
+                    <p>Никаких шаблонных программ. Мы составляем персональную траекторию обучения под ваши цели и текущий уровень знаний.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3>Глубокое понимание</h3>
+                    <p>Не зубрежка формул, а понимание сути явлений. Учим думать, анализировать и применять знания в нестандартных ситуациях.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3>Контроль прогресса</h3>
+                    <p>Регулярные тестирования и обратная связь. Вы всегда видите динамику роста и знаете, над чем еще нужно поработать.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3>Гибкий график</h3>
+                    <p>Занятия в удобное для вас время. Возможность переноса занятий и онлайн-формат для тех, кто ценит мобильность.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Как мы работаем</h2>
+            <p class="section-subtitle">Четыре простых шага к вашему результату</p>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Диагностика</h3>
+                    <p>Бесплатное тестирование для определения текущего уровня и выявления пробелов в знаниях.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Подбор учителя</h3>
+                    <p>Рекомендуем преподавателя, чья методика идеально подходит именно вашему ребенку.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Обучение</h3>
+                    <p>Регулярные занятия по индивидуальному плану с постоянным контролем качества.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Результат</h3>
+                    <p>Уверенная сдача ЕНТ на высокие баллы, поступление в вуз мечты и любовь к предмету.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция Руководства -->
+    <section class="leadership" id="leadership">
+        <div class="container">
+            <h2 class="section-title">Руководство центра</h2>
+            <p class="section-subtitle">Люди, которые задают стандарты качества</p>
+            
+            <div class="director-card">
+                <div class="director-photo">
+                    <img src="tribushnoi.jpg" alt="Александр Трибушной">
+                </div>
+                <div class="director-info">
+                    <h3>Александр Трибушной</h3>
+                    <div class="director-role">Основатель и Генеральный директор</div>
+                    <p>Визионер современного образования, который превратил репетиторство из хаотичного рынка услуг в системную экосистему развития талантов. Под его руководством Tribushnoi Education стал эталоном качества, задающим новые стандарты для всей индустрии дополнительного образования. Его философия проста: каждый ученик — это уникальная вселенная, требующая индивидуальной карты развития, а не конвейерного подхода.</p>
+                    <div class="director-quote">
+                        «Мы не готовим к экзаменам. Мы формируем мышление, которое позволит нашим выпускникам побеждать в любых жизненных вызовах, независимо от формата испытаний.»
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция Учителей -->
+    <section class="teachers" id="teachers">
+        <div class="container">
+            <h2 class="section-title">Наши преподаватели</h2>
+            <p class="section-subtitle">Профессионалы, которые вдохновляют учиться</p>
+            
+            <div class="teachers-list">
+                <div class="teacher-item">
+                    <div class="teacher-photo"><img src="mironenko.jpg" alt="Миронченко Матфей"></div>
+                    <div class="teacher-info">
+                        <h3>Миронченко Матфей</h3>
+                        <div class="subject">Физика</div>
+                        <p>Преподает физику уже несколько лет. Объясняет материал спокойно и последовательно, без лишней сложности. Помогает разобраться в задачах, которые не получаются на уроках в школе, и готовит к ЕНТ без стресса и зубрежки. Ученики отмечают, что после его занятий физика перестает быть «страшным» предметом.</p>
+                    </div>
+                </div>
+
+                <div class="teacher-item">
+                    <div class="teacher-photo"><img src="abdullina.jpg" alt="Абдуллина Валерия"></div>
+                    <div class="teacher-info">
+                        <h3>Абдуллина Валерия</h3>
+                        <div class="subject">Графический дизайн</div>
+                        <p>Практикующий дизайнер. Работает в Figma, Adobe Photoshop и Illustrator. Учит не просто рисовать красивые картинки, а создавать работающие макеты: лендинги, презентации, айдентику. Разбирает реальные кейсы, показывает горячие клавиши и типичные ошибки новичков. Никакой воды — только инструменты, которые нужны в работе.</p>
+                    </div>
+                </div>
+
+                <div class="teacher-item">
+                    <div class="teacher-photo"><img src="sagimov.jpg" alt="Сагимов Шамседин"></div>
+                    <div class="teacher-info">
+                        <h3>Сагимов Шамседин</h3>
+                        <div class="subject">Логика и стратегия</div>
+                        <p>Учит структурировать мышление и принимать взвешенные решения. На занятиях разбираются логические задачи, шахматные комбинации и бизнес-кейсы. Объясняет, как отделять факты от эмоций, выстраивать аргументацию и просчитывать последствия своих действий. Навык, который пригодится не только на экзаменах, но и в обычной жизни.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Готовы начать обучение?</h2>
+            <p>Запишитесь на бесплатную диагностику прямо сейчас и получите персональный план подготовки</p>
+            <a href="#contact" class="btn btn-primary" style="background: white; color: #2c3e50;">Записаться бесплатно</a>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Контакты</h2>
+            <p class="section-subtitle">Свяжитесь с нами любым удобным способом</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h4>Телефон</h4>
+                    <p>+7 (747) 894-54-93</p>
+                </div>
+                <div class="contact-item">
+                    <h4>Email</h4>
+                    <p>TribushnoiEDU@gmail.com</p>
+                </div>
+                <div class="contact-item">
+                    <h4>Адрес</h4>
+                    <p>Ботаническая улица, 2</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container"><p>&copy; 2026 Tribushnoi Education. Все права защищены.</p></div>
+    </footer>
+</body>
+</html>
